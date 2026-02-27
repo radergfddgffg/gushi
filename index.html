@@ -1,0 +1,42 @@
+<div class="story-tailor-container">
+    <div class="inline-drawer">
+        <div class="inline-drawer-toggle inline-drawer-header">
+            <b>Story Tailor (剧情裁缝)</b>
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+        </div>
+        <div class="inline-drawer-content" style="display: none;">
+            <div class="story-tailor-settings">
+                <div class="story-tailor-setting-block">
+                    <label for="st-plot-pref" title="希望接下来的剧情如何发展？会自动注入到提示词中。">
+                        <span>剧情发展偏好 (Plot Preference)</span>
+                    </label>
+                    <textarea id="st-plot-pref" class="text_pole" rows="3" placeholder="例如：接下来他们会遇到一场意外的暴风雨，被迫在山洞躲避..."></textarea>
+                </div>
+                
+                <div class="story-tailor-setting-block">
+                    <label for="st-writing-style" title="规定AI回复的文体风格。">
+                        <span>文风 (Writing Style)</span>
+                    </label>
+                    <textarea id="st-writing-style" class="text_pole" rows="3" placeholder="例如：文风偏向日系轻小说，多用心理描写，辞藻华丽但克制..."></textarea>
+                </div>
+
+                <div class="story-tailor-setting-block">
+                    <label for="st-art-style" title="如果使用了画图插件，这里可以定义画风。">
+                        <span>画风 (Art Style)</span>
+                    </label>
+                    <textarea id="st-art-style" class="text_pole" rows="2" placeholder="例如：(masterpiece, best quality, anime style, colorful)"></textarea>
+                </div>
+                
+                <div class="story-tailor-footer">
+                    <button id="st-save-btn" class="menu_button">Save Settings 保存设置</button>
+                    <span id="st-save-status" style="display: none; color: green; margin-left: 10px;">Saved! 已保存</span>
+                </div>
+            </div>
+            
+            <hr>
+            <div class="story-tailor-info">
+                <small>使用说明：填写上方内容后，它们将被**隐式附加**到发送给AI的 Prompt 末尾。你也可以在自己的预设 (`TavernAI_Preset.json` 等) 中任意位置使用宏变量 `{{getglobalvar::st_plot_pref}}`, `{{getglobalvar::st_writing_style}}`, 与 `{{getglobalvar::st_art_style}}`。</small>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+{
+    "display_name": "Story Tailor (剧情裁缝)",
+    "loading_order": 50,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "Antigravity",
+    "version": "1.0.1",
+    "homePage": "https://github.com/radergfddgffg/gushi",
+    "description": "A SillyTavern extension to inject user preferences into stories.",
+    "generate_interceptor": "storyTailorGenerateInterceptor"
+}

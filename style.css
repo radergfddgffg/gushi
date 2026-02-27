@@ -1,0 +1,49 @@
+.story-tailor-container {
+    padding: 10px;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: var(--SmartThemeBlurTintColor);
+}
+
+.story-tailor-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.story-tailor-setting-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.story-tailor-setting-block label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: var(--SmartThemeBodyColor);
+    font-size: 0.9em;
+}
+
+.story-tailor-setting-block textarea {
+    width: 100%;
+    resize: vertical;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: var(--SmartThemeSurfaceColor);
+    color: var(--SmartThemeBodyColor);
+    border: 1px solid var(--SmartThemeBorderColor);
+}
+
+.story-tailor-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.story-tailor-info {
+    margin-top: 10px;
+    color: var(--SmartThemeQuoteColor);
+    font-style: italic;
+}
