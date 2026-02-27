@@ -1,13 +1,12 @@
 {
-    "display_name": "Story Tailor (剧情裁缝)",
-    "loading_order": 50,
+    "display_name": "LittleWhiteBox",
+    "loading_order": 10,
     "requires": [],
     "optional": [],
     "js": "index.js",
     "css": "style.css",
-    "author": "Antigravity",
-    "version": "1.0.1",
-    "homePage": "https://github.com/radergfddgffg/gushi",
-    "description": "A SillyTavern extension to inject user preferences into stories.",
-    "generate_interceptor": "storyTailorGenerateInterceptor"
+    "author": "biex",
+    "version": "2.5.0",
+    "homePage": "https://github.com/RT15548/LittleWhiteBox",
+    "generate_interceptor": "xiaobaixGenerateInterceptor"
 }
