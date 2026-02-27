@@ -1,7 +1,7 @@
-import { getExtensionSettings, saveExtensionSettings } from "../../../../script.js";
-import { extension_settings } from "../../../extensions.js";
-import { EXT_ID } from "../core/constants.js";
-import { setGlobalExt } from "../../../variables.js"; // For setting global variables in ST
+import { getExtensionSettings, saveExtensionSettings } from "../../../../../../script.js";
+import { extension_settings } from "../../../../../extensions.js";
+import { EXT_ID } from "../../core/constants.js";
+import { setGlobalExt } from "../../../../../variables.js"; // For setting global variables in ST
 
 const MODULE_KEY = 'un';
 
