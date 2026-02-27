@@ -1,8 +1,6 @@
-import { getExtensionSettings, saveExtensionSettings } from "../../../../../script.js";
-import { extension_settings } from "../../../../extensions.js";
-import { setGlobalExt } from "../../../../variables.js"; // For setting global variables in ST
+import { extension_settings } from "../../../extensions.js";
+import { saveSettingsDebounced } from "../../../../script.js";
 
-// Save default config
 const extensionName = "gushi";
 const extensionFolderPath = `scripts/extensions/third-party/${extensionName}`;
 
@@ -13,42 +11,11 @@ const defaultSettings = {
     artStyle: ""
 };
 
-// Settings storage
-let settings = {};
-
-/**
- * Update global macro variables so users can use {{getglobalvar::st_plot_pref}} in their prompts.
- */
-function updateGlobalVariables() {
-    setGlobalExt("st_plot_pref", settings.plotPref || "");
-    setGlobalExt("st_writing_style", settings.writingStyle || "");
-    setGlobalExt("st_art_style", settings.artStyle || "");
+// Initialize settings
+if (!extension_settings[extensionName]) {
+    extension_settings[extensionName] = defaultSettings;
 }
-
-/**
- * Save settings from the UI to SillyTavern storage.
- */
-function saveSettings() {
-    const plotInput = document.getElementById("st-plot-pref");
-    const writeInput = document.getElementById("st-writing-style");
-    const artInput = document.getElementById("st-art-style");
-
-    if (plotInput) settings.plotPref = plotInput.value;
-    if (writeInput) settings.writingStyle = writeInput.value;
-    if (artInput) settings.artStyle = artInput.value;
-
-    extension_settings[extensionName] = settings;
-    saveExtensionSettings();
-    updateGlobalVariables();
-
-    const statusText = document.getElementById("st-save-status");
-    if (statusText) {
-        statusText.style.display = "inline";
-        setTimeout(() => {
-            statusText.style.display = "none";
-        }, 2000);
-    }
-}
+const settings = extension_settings[extensionName];
 
 /**
  * Handle UI setup and click events.
@@ -69,7 +36,22 @@ function setupUI(html) {
 
     const saveBtn = document.getElementById("st-save-btn");
     if (saveBtn) {
-        saveBtn.addEventListener("click", saveSettings);
+        saveBtn.addEventListener("click", () => {
+            if (plotInput) settings.plotPref = plotInput.value;
+            if (writeInput) settings.writingStyle = writeInput.value;
+            if (artInput) settings.artStyle = artInput.value;
+
+            extension_settings[extensionName] = settings;
+            saveSettingsDebounced();
+
+            const statusText = document.getElementById("st-save-status");
+            if (statusText) {
+                statusText.style.display = "inline";
+                setTimeout(() => {
+                    statusText.style.display = "none";
+                }, 2000);
+            }
+        });
     }
 }
 
@@ -84,10 +66,10 @@ export async function storyTailorGenerateInterceptor(req) {
     let injectionText = "";
 
     if (settings.plotPref) {
-        injectionText += `\n[Plot Preference/Direction: ${settings.plotPref}]\n`;
+        injectionText += `\n[Plot/Story Preference: ${settings.plotPref}]\n`;
     }
     if (settings.writingStyle) {
-        injectionText += `\n[Writing Style: ${settings.writingStyle}]\n`;
+        injectionText += `\n[Writing Style/Tone requirement: ${settings.writingStyle}]\n`;
     }
 
     if (injectionText.length > 0) {
@@ -98,17 +80,13 @@ export async function storyTailorGenerateInterceptor(req) {
     }
 }
 
-// Ensure init execution
+// Ensure init execution like LittleWhiteBox
 jQuery(async () => {
-    const savedSettings = getExtensionSettings(extensionName) || {};
-    settings = Object.assign({}, defaultSettings, savedSettings);
-
     try {
         const fetchHtml = await fetch(`${extensionFolderPath}/index.html`);
         if (fetchHtml.ok) {
             const htmlText = await fetchHtml.text();
             setupUI(htmlText);
-            updateGlobalVariables();
         } else {
             console.warn(`[Story Tailor] Could not fetch UI html from ${extensionFolderPath}`);
         }
